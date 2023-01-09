@@ -12,8 +12,7 @@ module.exports = {
 		let version = interaction.options.getString('version').split(' ')[1];
 		let result = false;
 
-		if (device[0].soc === 'A12' || device[0].soc === 'A13' || device[0].soc === 'A14' || device[0].soc === 'A15' || device[0].soc === 'M1') result = true;
-		if (version === '15.0' || version === '15.0.1' || version === '15.0.2' || version === '15.1' || version === '15.1.1') result = true;
+		if (device[0].soc === 'A12' || device[0].soc === 'A13' || device[0].soc === 'A14' || device[0].soc === 'A15' || device[0].soc === 'M1') if (version === '15.0' || version === '15.0.1' || version === '15.0.2' || version === '15.1' || version === '15.1.1') result = true;
 
 		await interaction.reply({
 			content: `${device[0].name} on ${version} is ${result ? 'jailbreakable' : 'unjailbreakable'} using XinaA15!`,
