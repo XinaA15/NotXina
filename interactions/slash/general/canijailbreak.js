@@ -18,7 +18,7 @@ module.exports = {
 		if (result) {
 			embed.setTitle('Congratualtions, your device is compatible');
 			embed.setDescription(`${device[0].name} on ${version} is compatible with XinaA15`);
-			embed.addFields({ name: 'Current Version', value: '1.1.6.2', inline: true }, { name: 'Comptabile Chips', value: 'A12-A15, M1', inline: true }, { name: 'Compatible Versions', value: '15.0 - 15.1.1', inline: true });
+			embed.addFields({ name: 'Current Version', value: '1.1.6.2', inline: true }, { name: 'Comptabile Chips', value: 'A12-A15, M1', inline: true }, { name: 'Compatible Versions', value: '15.0 - 15.1.1', inline: false });
 			embed.setColor('Green');
 		} else {
 			embed.setTitle('Unfortunately, your device is incompatible');
