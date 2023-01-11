@@ -5,7 +5,8 @@ module.exports = {
 		.setName('search')
 		.setDescription('Search for Tweaks and Repos')
 		.addStringOption(option => option.setName('package').setDescription('The package you want to search').setAutocomplete(true))
-		.addStringOption(option => option.setName('repo').setDescription('The repo you want to search').setAutocomplete(true)),
+		.addStringOption(option => option.setName('repo').setDescription('The repo you want to search').setAutocomplete(true))
+		.addBooleanOption(option => option.setName('public').setDescription('Display the output publicly')),
 	async execute(interaction) {
 		let embed = new EmbedBuilder().setColor('Random');
 		let package = interaction.options.getString('package');
@@ -21,9 +22,10 @@ module.exports = {
 		if (package) {
 			let packageRequest = await require('node-fetch')(`https://api.canister.me/v2/jailbreak/package/search?q=${encodeURIComponent(package)}`)
 				.then(res => res.json())
-				.then(json => json.data[0]);
+				.then(json => json.data.filter(pkg => pkg.name == package)[0]);
 
-			var row = new ActionRowBuilder().addComponents(new ButtonBuilder().setStyle('Link').setLabel('Download').setURL(`${packageRequest.repository.uri}/${packageRequest.filename}`)).addComponents(new ButtonBuilder().setStyle('Link').setLabel('Depiction').setURL(packageRequest.depiction));
+			var row = new ActionRowBuilder().addComponents(new ButtonBuilder().setStyle('Link').setLabel('Depiction').setURL(packageRequest.depiction));
+			if (packageRequest.price === 'Free') row.addComponents(new ButtonBuilder().setStyle('Link').setLabel('Download').setURL(`${packageRequest.repository.uri}/${packageRequest.filename}`));
 
 			embed
 				.setTitle(packageRequest.name)
@@ -33,7 +35,7 @@ module.exports = {
 				.setColor(packageRequest.tintColor ?? 'Random');
 		}
 		if (repo) {
-			let repoRequest = await require('node-fetch')(`https://api.canister.me/v2/jailbreak/repository/search?q=${encodeURIComponent(repo)}`)
+			let repoRequest = await require('node-fetch')(`https://api.canister.me/v2/jailbreak/repository/search?q=${encodeURIComponent(repo.split(' ')[0])}`)
 				.then(res => res.json())
 				.then(json => json.data[0]);
 
