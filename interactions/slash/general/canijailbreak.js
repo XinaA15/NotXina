@@ -6,7 +6,8 @@ module.exports = {
 		.setName('canijailbreak')
 		.setDescription('Check if your device is jailbreakable using XinaA15')
 		.addStringOption(option => option.setName('device').setDescription('Your Device Model').setRequired(true).setAutocomplete(true))
-		.addStringOption(option => option.setName('version').setDescription('Your Device Version').setRequired(true).setAutocomplete(true)),
+		.addStringOption(option => option.setName('version').setDescription('Your Device Version').setRequired(true).setAutocomplete(true))
+		.addBooleanOption(option => option.setName('public').setDescription('Display the output publicly')),
 	async execute(interaction) {
 		let device = jailbreak.device.filter(d => d.name === interaction.options.getString('device'));
 		let version = interaction.options.getString('version').split(' ')[1];
@@ -29,7 +30,7 @@ module.exports = {
 		await interaction.reply({
 			embeds: [embed],
 			components: result ? [new ActionRowBuilder().addComponents(new ButtonBuilder().setStyle('Link').setLabel('Guide').setURL('https://ptb.discord.com/channels/1052662721851691149/1052670152086392902/1061386442372305057'))] : [],
-			ephemeral: true
+			ephemeral: !interaction.options.getBoolean('public')
 		});
 	}
 };
