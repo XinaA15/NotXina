@@ -8,7 +8,17 @@ module.exports = {
 		});
 
 		await member.guild.channels.fetch('1064284756403032115').then(channel => {
-			channel.send(new EmbedBuilder().setTitle(`Welcome ${member.user.tag.toString()}`).setDescription(`Welcome to the server, please read the rules at <#1052664412655329340> and grab roles at <#1061588505928663070>!`).setThumbnail(member.user.displayAvatarURL()).setColor('Random').setTimestamp().setFooter(`ID: ${member.user.id}`)).catch(e => console.error(`[ERROR]: ${e}`));
+			channel
+				.send(
+					new EmbedBuilder()
+						.setTitle(`Welcome ${member.user.tag.toString()}`)
+						.setDescription(`Welcome to the server, please read the rules at <#1052664412655329340> and grab roles at <#1061588505928663070>!`)
+						.setThumbnail(member.user.displayAvatarURL())
+						.setColor('Random')
+						.setTimestamp()
+						.setFooter({ text: `ID: ${member.user.id}` })
+				)
+				.catch(e => console.error(`[ERROR]: ${e}`));
 		});
 	}
 };
