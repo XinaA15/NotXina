@@ -114,8 +114,8 @@ const rest = new REST({ version: '9' }).setToken(process.env.TOKEN);
 
 (async () => {
 	try {
+		await rest.put(Routes.applicationCommands(process.env.CLIENT, process.env.GUILD), { body: [] });
 		// await rest.put(Routes.applicationGuildCommands(process.env.CLIENT, process.env.GUILD), { body: [...Array.from(client.slashCommands.values()).map(c => c.data.toJSON())] });
-		// await rest.put(Routes.applicationCommands(process.env.CLIENT, process.env.GUILD), { body: [] });
 
 		await rest.put(Routes.applicationCommands(process.env.CLIENT), { body: [] });
 		await rest.put(Routes.applicationCommands(process.env.CLIENT), { body: [...Array.from(client.slashCommands.values()).map(c => c.data.toJSON())] });
